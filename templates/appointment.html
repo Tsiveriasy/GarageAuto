@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Prendre Rendez-vous - Garage Auto{% endblock %}
+
+{% block content %}
+<section class="pt-32 pb-24 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-center mb-12">Prendre Rendez-vous</h1>
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl shadow-md p-8 mb-8">
+                <h2 class="text-2xl font-semibold mb-6">Sélectionnez un véhicule</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    {% for vehicle in vehicles %}
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <h3 class="font-semibold mb-2">{{ vehicle.get_type_display }} - {{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</h3>
+                        <p class="text-sm text-gray-600">Plaque: {{ vehicle.license_plate }}</p>
+                        <p class="text-sm text-gray-600">Propriétaire: {{ vehicle.owner }}</p>
+                    </div>
+                    {% empty %}
+                    <p class="col-span-2 text-center text-gray-600">Aucun véhicule enregistré. Ajoutez-en un ci-dessous.</p>
+                    {% endfor %}
+                </div>
+                <form method="post" class="mb-8">
+                    {% csrf_token %}
+                    <h3 class="text-xl font-semibold mb-4">Prendre rendez-vous</h3>
+                    {% for field in appointment_form %}
+                    <div class="mb-4">
+                        <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ field.label }}
+                        </label>
+                        {{ field }}
+                        {% if field.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ field.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors">
+                        Confirmer le rendez-vous
+                    </button>
+                </form>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-8">
+                <h2 class="text-2xl font-semibold mb-6">Ajouter un nouveau véhicule</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in vehicle_form %}
+                    <div class="mb-4">
+                        <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ field.label }}
+                        </label>
+                        {{ field }}
+                        {% if field.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ field.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" name="vehicle_submit" class="w-full bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transition-colors">
+                        Ajouter le véhicule
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Pourquoi prendre rendez-vous chez Garage Auto ?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <svg class="w-12 h-12 text-blue-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h3 class="text-xl font-semibold mb-2">Gain de temps</h3>
+                <p class="text-gray-600">Évitez les attentes et choisissez l'horaire qui vous convient</p>
+            </div>
+            <div class="text-center">
+                <svg class="w-12 h-12 text-blue-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                <h3 class="text-xl font-semibold mb-2">Service personnalisé</h3>
+                <p class="text-gray-600">Nos experts seront prêts à s'occuper de votre véhicule</p>
+            </div>
+            <div class="text-center">
+                <svg class="w-12 h-12 text-blue-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <h3 class="text-xl font-semibold mb-2">Efficacité</h3>
+                <p class="text-gray-600">Un service rapide et efficace pour vous remettre sur la route</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

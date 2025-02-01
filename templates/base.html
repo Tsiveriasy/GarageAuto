@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Garage Auto{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })">
+        <nav :class="{ 'bg-white/95 backdrop-blur-md shadow-sm': scrolled, 'bg-gray-800/70 backdrop-blur-md': !scrolled }" class="transition-all duration-300">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between h-20">
+                    <a href="{% url 'home' %}" class="text-2xl font-bold" :class="{ 'text-gray-900': scrolled, 'text-white': !scrolled }">Garage Auto</a>
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="{% url 'home' %}" class="text-sm font-medium transition-colors" :class="{ 'text-gray-600 hover:text-gray-900': scrolled, 'text-white hover:text-gray-200': !scrolled }">Accueil</a>
+                        <a href="{% url 'services' %}" class="text-sm font-medium transition-colors" :class="{ 'text-gray-600 hover:text-gray-900': scrolled, 'text-white hover:text-gray-200': !scrolled }">Services</a>
+                        <a href="{% url 'appointment' %}" class="text-sm font-medium transition-colors" :class="{ 'text-gray-600 hover:text-gray-900': scrolled, 'text-white hover:text-gray-200': !scrolled }">Rendez-vous</a>
+                        <a href="{% url 'staff' %}" class="text-sm font-medium transition-colors" :class="{ 'text-gray-600 hover:text-gray-900': scrolled, 'text-white hover:text-gray-200': !scrolled }">Notre équipe</a>
+                        <a href="{% url 'contact' %}" class="text-sm font-medium transition-colors" :class="{ 'text-gray-600 hover:text-gray-900': scrolled, 'text-white hover:text-gray-200': !scrolled }">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Garage Auto</h3>
+                    <p class="text-gray-400 mb-4">Votre partenaire de confiance pour l'entretien et la réparation de votre véhicule.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Liens rapides</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-white">Accueil</a></li>
+                        <li><a href="{% url 'services' %}" class="text-gray-400 hover:text-white">Services</a></li>
+                        <li><a href="{% url 'appointment' %}" class="text-gray-400 hover:text-white">Rendez-vous</a></li>
+                        <li><a href="{% url 'staff' %}" class="text-gray-400 hover:text-white">Notre équipe</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Réparation mécanique</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Entretien régulier</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Diagnostic électronique</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Carrosserie</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact</h3>
+                    <p class="text-gray-400 mb-2">Antananarivo, 123 cité</p>
+                    <p class="text-gray-400 mb-2">Téléphone: +261 34 00 000 00</p>
+                    <p class="text-gray-400 mb-2">Email: contact@garageauto.fr</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; Garage Auto. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+

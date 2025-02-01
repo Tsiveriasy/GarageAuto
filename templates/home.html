@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Accueil - Garage Auto{% endblock %}
+
+{% block content %}
+<section class="relative h-screen overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1486006920555-c77dcf18193c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');">
+        <div class="absolute inset-0 bg-black opacity-70"></div>
+    </div>
+    <div class="relative container mx-auto px-4 h-full flex flex-col justify-center">
+        <div class="max-w-3xl space-y-6">
+            <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight tracking-tight">
+                Garage Auto : Votre partenaire automobile de confiance
+            </h1>
+            <p class="text-lg md:text-xl text-white/80 max-w-xl">
+                Expertise, qualité et service personnalisé pour l'entretien et la réparation de votre véhicule.
+            </p>
+            <a href="{% url 'appointment' %}" class="inline-block bg-white text-blue-600 px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-100 transition-colors">
+                Prendre rendez-vous
+            </a>
+            <a href="{% url 'services' %}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors ml-4">
+                Nos services
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Nos services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for service in services|slice:":3" %}
+            <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-semibold mb-4">{{ service.name }}</h3>
+                <p class="text-gray-600 mb-4">{{ service.description|truncatewords:20 }}</p>
+                {% if service.price %}
+                <p class="text-blue-600 font-bold">{{ service.price|floatformat:0 }} Ar</p>
+                {% endif %}
+                <a href="{% url 'services' %}" class="text-blue-600 font-medium hover:text-blue-800">En savoir plus</a>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-12">
+            <a href="{% url 'services' %}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors border-2 border-blue-600 hover:border-blue-700">
+                Voir tous nos services
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Pourquoi choisir Garage Auto ?</h2>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span>Expertise technique de pointe</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span>Service client exceptionnel</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span>Équipement de diagnostic moderne</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span>Tarifs transparents et compétitifs</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1630933868840-e5a1f5b94c99?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Atelier de réparation" class="rounded-xl shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
